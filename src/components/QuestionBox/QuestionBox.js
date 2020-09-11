@@ -9,7 +9,7 @@ export default function QuestionBox({ questions }) {
   const [answers, setAnswers] = useState([]);
   
 
-  const [teste, setTeste] = useState("");
+  const [userAnswer, setUserAnswer] = useState("");
   const [indice, setIndice] = useState(-1);
 
   const [counter, setCounter] = useContext(QuizzContext);
@@ -24,7 +24,7 @@ export default function QuestionBox({ questions }) {
       shuffle(respostas);
       setAnswers(respostas);
 
-      setTeste("");
+      setUserAnswer("");
     }
     handleShuffle();
   }, [counter]);
@@ -51,7 +51,7 @@ export default function QuestionBox({ questions }) {
         alert("Right Answer");
         setCounter(counter + 1);
       }, 1000);
-      setTeste("certo");
+      setUserAnswer("certo");
       setIndice(index);
 
     
@@ -63,18 +63,14 @@ export default function QuestionBox({ questions }) {
         setCounter(counter + 1);
       }, 500);
 
-      setTeste("errado");
+      setUserAnswer("errado");
     }
 
     setIndice(index);
   };
 
-  // console.log('Answers => ',answers)
-
-  // console.log(counter);
-
-  // console.log('Question number 1 => ', questions[counter].question)
-  console.log( 'INDICE -> ' ,indice)
+  
+  console.log( 'userAnswer -> ' ,userAnswer)
   
 
   return (
@@ -89,9 +85,9 @@ export default function QuestionBox({ questions }) {
             <div
               className={cx(
                 styles.answer,
-                teste === "certo" && indice === i
+                userAnswer === "certo" && indice === i
                   ? styles.rightAnswer
-                  : teste === "errado" && indice === i
+                  : userAnswer === "errado" && indice === i
                   ? styles.wrongAnswer
                   : ""
               )}
