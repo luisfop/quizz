@@ -1,17 +1,14 @@
-import React ,{useState , useContext } from 'react';
+import React ,{useState , createContext } from 'react';
 
 export const QuizzContext = createContext()
 
 
 export const QuizzProvider = (props) => {
-    const [index, setIndex ] = useState(-1);
-
-
-
+    const [counter, setCounter] = useState(0);
 
 
     return(
-        <QuizzContext.Provider value={{index,setIndex}}>
+        <QuizzContext.Provider value={[counter,setCounter ]}>
             {props.children}
         </QuizzContext.Provider>
     )

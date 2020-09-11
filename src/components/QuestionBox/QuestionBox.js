@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import styles from "./QuestionBox.module.css";
 import cx from "classnames";
 
+import {QuizzContext} from '../../context/QuizzContext';
+
 export default function QuestionBox({ questions }) {
   const [answers, setAnswers] = useState([]);
-  const [counter, setCounter] = useState(0);
+  
 
   const [teste, setTeste] = useState("");
   const [indice, setIndice] = useState(-1);
+
+  const [counter, setCounter] = useContext(QuizzContext);
+
 
   useEffect(() => {
     async function handleShuffle() {
@@ -35,19 +40,13 @@ export default function QuestionBox({ questions }) {
     return arr;
   };
 
-
-  
-
   const handleCounter = (index, answer) => {
     let correctAnswer = questions[counter].correct_answer;
     // console.log('Correct Answer =>',correctAnswer);
     // console.log( 'Index => ', index );
     // console.log("Answer => ", answer);
 
-
-
     if (answer === correctAnswer && indice === index) {
-      
       setTimeout(function() {
         alert("Right Answer");
         setCounter(counter + 1);
@@ -55,13 +54,10 @@ export default function QuestionBox({ questions }) {
       setTeste("certo");
       setIndice(index);
 
-
-      // setAnswerStyling(true)
-
-      // alert('Resposta CORRETA!');
+    
     } else {
       // console.log('Errrrooooouuuu, vc clicou em ==>', answer)
-      
+
       setTimeout(function() {
         alert("Wrong Answer");
         setCounter(counter + 1);
@@ -78,8 +74,8 @@ export default function QuestionBox({ questions }) {
   // console.log(counter);
 
   // console.log('Question number 1 => ', questions[counter].question)
-  console.log("ANSWERS !!! =>> ", answers);
-
+  console.log( 'INDICE -> ' ,indice)
+  
 
   return (
     <div className="questionBox">
@@ -93,8 +89,13 @@ export default function QuestionBox({ questions }) {
             <div
               className={cx(
                 styles.answer,
-                teste === "certo" && indice === i ? styles.rightAnswer : teste === "errado" && indice === i ? styles.wrongAnswer : "")}
-                // teste === "certo" && indice === i ? styles.rightAnswer : teste === "errado" && indice === i ? styles.wrongAnswer : "")}
+                teste === "certo" && indice === i
+                  ? styles.rightAnswer
+                  : teste === "errado" && indice === i
+                  ? styles.wrongAnswer
+                  : ""
+              )}
+              // teste === "certo" && indice === i ? styles.rightAnswer : teste === "errado" && indice === i ? styles.wrongAnswer : "")}
               key={i}
               onClick={() => handleCounter(i, answer)}
             >
