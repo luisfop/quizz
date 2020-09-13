@@ -5,13 +5,13 @@ import {QuizzContext} from '../../../context/QuizzContext';
 
 const Header = () => {
 
-    const [counter, setCounter] = useContext(QuizzContext);
+    const {counter , result} = useContext(QuizzContext);
 
     return(
         <div className={styles.header}>
             <div className={styles.items}>
                 <p className={styles.item}>Question {counter} / 10</p>
-                <p  className={styles.item}>Result: 2/10</p>
+                <p  className={styles.item}>Correct answers: {result} / 10</p>
             </div>
             
         </div>

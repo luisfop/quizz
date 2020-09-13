@@ -3,28 +3,28 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./QuestionBox.module.css";
 import cx from "classnames";
 
-import {QuizzContext} from '../../context/QuizzContext';
+import { QuizzContext } from "../../context/QuizzContext";
 
 export default function QuestionBox({ questions }) {
   const [answers, setAnswers] = useState([]);
-  
 
   const [userAnswer, setUserAnswer] = useState("");
   const [indice, setIndice] = useState(-1);
 
-  const [counter, setCounter] = useContext(QuizzContext);
-
+  const { counter, setCounter, result, setResult } = useContext(QuizzContext);
 
   useEffect(() => {
     async function handleShuffle() {
-      const respostas = [
-        questions[counter].correct_answer,
-        questions[counter].incorrect_answers
-      ];
-      shuffle(respostas);
-      setAnswers(respostas);
+      if (counter <= 9) {
+        const respostas = [
+          questions[counter].correct_answer,
+          questions[counter].incorrect_answers
+        ];
+        shuffle(respostas);
+        setAnswers(respostas);
 
-      setUserAnswer("");
+        setUserAnswer("");
+      }
     }
     handleShuffle();
   }, [counter]);
@@ -42,56 +42,46 @@ export default function QuestionBox({ questions }) {
 
   const handleCounter = (index, answer) => {
     let correctAnswer = questions[counter].correct_answer;
-    // console.log('Correct Answer =>',correctAnswer);
-    // console.log( 'Index => ', index );
-    // console.log("Answer => ", answer);
 
     if (answer === correctAnswer && indice === index) {
       setTimeout(function() {
-        alert("Right Answer");
         setCounter(counter + 1);
       }, 1000);
-      setUserAnswer("certo");
+      setUserAnswer("correct");
       setIndice(index);
-
-    
+      setResult(result + 1);
     } else {
-      // console.log('Errrrooooouuuu, vc clicou em ==>', answer)
-
       setTimeout(function() {
-        alert("Wrong Answer");
         setCounter(counter + 1);
-      }, 500);
+      }, 1000);
 
-      setUserAnswer("errado");
+      setUserAnswer("wrong");
     }
 
     setIndice(index);
   };
 
-  
-  console.log( 'userAnswer -> ' ,userAnswer)
-  
+  const xablau = counter > 9;
 
-  return (
+  return xablau ? (
+    <h1>ACABOU</h1>
+  ) : (
     <div className="questionBox">
       <div className={styles.questionBoxQuestion}>
         <p>{questions[counter].question}</p>
       </div>
-
       <div className={styles.questionBoxAnswer}>
         {answers.map((answer, i) => {
           return (
             <div
               className={cx(
                 styles.answer,
-                userAnswer === "certo" && indice === i
+                userAnswer === "correct" && indice === i
                   ? styles.rightAnswer
-                  : userAnswer === "errado" && indice === i
+                  : userAnswer === "wrong" && indice === i
                   ? styles.wrongAnswer
                   : ""
               )}
-              // teste === "certo" && indice === i ? styles.rightAnswer : teste === "errado" && indice === i ? styles.wrongAnswer : "")}
               key={i}
               onClick={() => handleCounter(i, answer)}
             >
