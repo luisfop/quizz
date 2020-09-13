@@ -18,7 +18,7 @@ function App() {
       let response = await getAllQuestions(questionsApi);
 
       let data = response.results;
-      // console.log('Data =>', data);
+      
       setQuestionsData(data);
       setLoading(false);
     }
