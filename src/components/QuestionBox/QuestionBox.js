@@ -61,10 +61,10 @@ export default function QuestionBox({ questions }) {
     setIndice(index);
   };
 
-  const xablau = counter > 9;
+  const quizz = counter > 9;
 
-  return xablau ? (
-    <h1>ACABOU</h1>
+  return quizz ? (
+    <h1 styled={{color: "red"}}>Finished! Check your score!</h1>
   ) : (
     <div className="questionBox">
       <div className={styles.questionBoxQuestion}>
