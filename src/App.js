@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import {BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import { getAllQuestions } from "./services/Questions";
 import styles from "./App.module.css";
 import QuestionBox from "./components/QuestionBox/QuestionBox";
 import Header from "./components/QuestionBox/Header/Header";
 
 import { QuizzProvider } from "./context/QuizzContext";
+
+
 
 function App() {
   const [questionsData, setQuestionsData] = useState([]);
