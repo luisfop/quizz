@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { getAllQuestions } from "./services/Questions";
 import styles from "./App.module.css";
@@ -28,8 +27,6 @@ function App() {
     }
     fetchData();
   }, []);
-
-  console.log("questionsData =>", questionsData);
 
   return (
     <QuizzProvider>
