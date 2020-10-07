@@ -9,9 +9,9 @@ export default function QuestionBox({ questions }) {
   const [answers, setAnswers] = useState([]);
 
   const [userAnswer, setUserAnswer] = useState("");
-  const [indice, setIndice] = useState(-1);
+  const [indice, setIndice] = useState(0);
 
-  const { counter, setCounter, result, setResult } = useContext(QuizzContext);
+  const { counter, setCounter, setResult } = useContext(QuizzContext);
 
   useEffect(() => {
     async function handleShuffle() {
@@ -22,7 +22,6 @@ export default function QuestionBox({ questions }) {
         ];
         shuffle(respostas);
         setAnswers(respostas);
-
         setUserAnswer("");
       }
     }
@@ -43,16 +42,16 @@ export default function QuestionBox({ questions }) {
   const handleCounter = (index, answer) => {
     let correctAnswer = questions[counter].correct_answer;
 
-    if (answer === correctAnswer && indice === index) {
+    if (answer === correctAnswer) {
       setTimeout(function() {
-        setCounter(counter + 1);
+        setCounter(prevCounter => prevCounter + 1);
       }, 1000);
       setUserAnswer("correct");
       setIndice(index);
-      setResult(result + 1);
+      setResult(prevResult => prevResult + 1);
     } else {
       setTimeout(function() {
-        setCounter(counter + 1);
+        setCounter(prevCounter => prevCounter + 1);
       }, 1000);
 
       setUserAnswer("wrong");
@@ -64,7 +63,7 @@ export default function QuestionBox({ questions }) {
   const quizz = counter > 9;
 
   return quizz ? (
-    <h1 styled={{color: "red"}}>Finished! Check your score!</h1>
+    <h1 styled={{ color: "red" }}>Finished! Check your score!</h1>
   ) : (
     <div className="questionBox">
       <div className={styles.questionBoxQuestion}>

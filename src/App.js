@@ -7,8 +7,6 @@ import Header from "./components/QuestionBox/Header/Header";
 
 import { QuizzProvider } from "./context/QuizzContext";
 
-
-
 function App() {
   const [questionsData, setQuestionsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,9 +19,10 @@ function App() {
       let response = await getAllQuestions(questionsApi);
 
       let data = response.results;
-      
+
       setQuestionsData(data);
       setLoading(false);
+      console.log(data);
     }
     fetchData();
   }, []);
