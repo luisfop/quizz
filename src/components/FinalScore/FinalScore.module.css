@@ -1,0 +1,11 @@
+.finalScore {
+  height: 150px;
+  display: grid;
+  place-items: center;
+  background-color: lightcoral;
+  border-radius: 8px;
+}
+
+h1 {
+  font-size: 45px;
+}
