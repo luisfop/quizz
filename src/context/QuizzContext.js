@@ -1,15 +1,14 @@
-import React ,{useState , createContext } from 'react';
+import React, { useState, createContext } from "react";
 
-export const QuizzContext = createContext()
+export const QuizzContext = createContext();
 
+export const QuizzProvider = props => {
+  const [counter, setCounter] = useState(0);
+  const [score, setScore] = useState(0);
 
-export const QuizzProvider = (props) => {
-    const [counter, setCounter] = useState(0);
-    const [result, setResult] = useState(0);
-
-    return(
-        <QuizzContext.Provider value={{counter, setCounter, result,setResult}}>
-            {props.children}
-        </QuizzContext.Provider>
-    )
-}
+  return (
+    <QuizzContext.Provider value={{ counter, setCounter, score, setScore }}>
+      {props.children}
+    </QuizzContext.Provider>
+  );
+};

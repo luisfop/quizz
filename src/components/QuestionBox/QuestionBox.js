@@ -4,6 +4,7 @@ import styles from "./QuestionBox.module.css";
 import cx from "classnames";
 
 import { QuizzContext } from "../../context/QuizzContext";
+import FinalScore from "../FinalScore/FinalScore";
 
 export default function QuestionBox({ questions }) {
   const [answers, setAnswers] = useState([]);
@@ -11,7 +12,7 @@ export default function QuestionBox({ questions }) {
   const [userAnswer, setUserAnswer] = useState("");
   const [indice, setIndice] = useState(0);
 
-  const { counter, setCounter, setResult } = useContext(QuizzContext);
+  const { counter, setCounter, setScore, score } = useContext(QuizzContext);
 
   useEffect(() => {
     async function handleShuffle() {
@@ -48,7 +49,7 @@ export default function QuestionBox({ questions }) {
       }, 1000);
       setUserAnswer("correct");
       setIndice(index);
-      setResult(prevResult => prevResult + 1);
+      setScore(prevScore => prevScore + 1);
     } else {
       setTimeout(function() {
         setCounter(prevCounter => prevCounter + 1);
@@ -63,7 +64,8 @@ export default function QuestionBox({ questions }) {
   const quizz = counter > 9;
 
   return quizz ? (
-    <h1 styled={{ color: "red" }}>Finished! Check your score!</h1>
+    // <h1 styled={{ color: "red" }}>Finished! Check your score!</h1>
+    <FinalScore />
   ) : (
     <div className="questionBox">
       <div className={styles.questionBoxQuestion}>
